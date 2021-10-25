@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter TO App',
+        title: 'Flutter TO DO App',
         debugShowCheckedModeBanner: false,
         theme: Themes.lightMode,
         darkTheme: Themes.darkMode,
