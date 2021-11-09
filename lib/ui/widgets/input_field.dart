@@ -32,40 +32,40 @@ class MyInputField extends StatelessWidget {
           Container(
             height: 52,
             margin: EdgeInsets.only(top: 8.0),
-            padding: EdgeInsets.only(left: 14),
+            padding: EdgeInsets.only(left: 10),
             // color: Colors.grey,
             decoration: BoxDecoration(
-                color: Colors.grey,
+                color: Colors.white,
                 border: Border.all(color: Colors.grey, width: 1.0),
                 borderRadius: BorderRadius.circular(12)),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                      readOnly: widget == null ? false : true,
-                      autofocus: false,
-                      cursorColor:
-                          Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
-                      controller: controller,
-                      style: subTitleStyle,
-                      decoration: InputDecoration(
-                          hintText: hint,
-                          hintStyle: subTitleStyle,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: context.theme.backgroundColor,
-                                  width: 0)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: context.theme.backgroundColor,
-                                  width: 0)))),
-                ),
-                widget == null
-                    ? Container()
-                    : Container(
-                        child: widget,
-                      )
-              ],
+            child: Flexible(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                        readOnly: widget == null ? false : true,
+                        autofocus: false,
+                        cursorColor:
+                            Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
+                        controller: controller,
+                        style: subTitleStyle,
+                        decoration: InputDecoration(
+                            hintText: hint,
+                            hintStyle: subTitleStyle,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: context.theme.backgroundColor,
+                                    width: 0)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: context.theme.backgroundColor,
+                                    width: 0)))),
+                  ),
+                  widget == null? Container():Container(
+                          child: widget,
+                        )
+                ],
+              ),
             ),
           ),
         ],

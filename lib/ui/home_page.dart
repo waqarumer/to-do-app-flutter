@@ -2,6 +2,7 @@
 
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/controllers/task_controller.dart';
 import 'package:flutter_todo_app/services/notification_services.dart';
 import 'package:flutter_todo_app/services/theme_services.dart';
 import 'package:flutter_todo_app/ui/theme.dart';
@@ -21,9 +22,14 @@ class HomePAge extends StatefulWidget {
 }
 
 class _HomePAgeState extends State<HomePAge> {
-  // ignore: prefer_typing_uninitialized_variables
+  // ignore: prefer_typing_uninitialized_variables, unused_field
   DateTime _selectedDate = DateTime.now();
+
+  // ignore: prefer_typing_uninitialized_variables
+
+  // ignore: prefer_typing_uninitialized_variables
   var notifyHelper;
+  final _taskController = Get.put(TaskController());
   @override
   void initState() {
     // ignore: todo
@@ -37,13 +43,36 @@ class _HomePAgeState extends State<HomePAge> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
+      backgroundColor: context.theme.backgroundColor,
       body: Column(
         // ignore: prefer_const_literals_to_create_immutables
         children: [
           _addTaskbar(),
           _addDatebar(),
+          _showTasks(),
         ],
       ),
+    );
+  }
+
+  _showTasks() {
+    return Expanded(
+      child: Obx(() {
+        return ListView.builder(
+          itemCount: _taskController.taskList.length,
+          itemBuilder: (_, context) {
+            // ignore: avoid_print
+            print(_taskController.taskList.length);
+            return Container(
+              width: 100,
+              height: 50,
+              color: Colors.green,
+              margin: EdgeInsets.only(bottom: 10),
+              child: Text("hello world"),
+            );
+          },
+        );
+      }),
     );
   }
 
@@ -105,7 +134,11 @@ class _HomePAgeState extends State<HomePAge> {
               ),
             ],
           ),
-          MyButton(label: "+ Add Task", onTap: () =>Get.to(AddTaskPage()))
+          MyButton(
+              label: "+ Add Task",
+              onTap: () async {
+                await Get.to(AddTaskPage());
+              })
         ],
       ),
     );
@@ -124,6 +157,7 @@ class _HomePAgeState extends State<HomePAge> {
                 ? "Activated Light Theme"
                 : "Activated Dark Theme",
           );
+
           notifyHelper.scheduledNotification();
         },
         child: Icon(
@@ -134,11 +168,13 @@ class _HomePAgeState extends State<HomePAge> {
       ),
       // ignore: prefer_const_literals_to_create_immutables
       actions: [
-        CircleAvatar(
-          backgroundImage: AssetImage("images/profile.png"),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          child: CircleAvatar(
+            backgroundImage: AssetImage("images/profile.png"),
+          ),
         ),
       ],
     );
   }
-
 }
